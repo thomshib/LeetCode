@@ -13,10 +13,19 @@ namespace LeetCode.WordLadders
     {
         public int Steps { get; set; }
         public string Word { get; set; }
+        public WordNode Previous { get; set; }
         public WordNode(string word, int steps)
         {
             this.Word = word;
             this.Steps = steps;
+            this.Previous = null;
+        }
+
+        public WordNode(string word, int steps, WordNode pre)
+        {
+            this.Word = word;
+            this.Steps = steps;
+            this.Previous = pre;
         }
     }
 
@@ -129,6 +138,165 @@ namespace LeetCode.WordLadders
             return output;
 
         }
+
+
+        public List<List<string>> AllShortestLadders_Optimized(string beginWord, string endWord, List<string> wordDict)
+        {
+            Queue<string> queue = new Queue<string>();
+            List<List<string>> output = new List<List<string>>();
+            HashSet<string> seen = new HashSet<string>();
+            HashSet<string> seen_this_level = new HashSet<string>();
+
+            //word -> List(words), the dictionary will have all words which we reached 'word' during BFS
+            Dictionary<string, List<string>> parents = new Dictionary<string, List<string>>();
+
+            queue.Enqueue(beginWord);
+            seen.Add(beginWord);
+
+            while (queue.Count > 0)
+            {
+                //we will process level by level
+                int num_in_level = queue.Count;
+                bool finished = false;
+                seen_this_level = new HashSet<string>();
+
+                for (int i = 0; i < num_in_level; i++)
+                {
+                    var next = queue.Dequeue();
+                    foreach(var candidate in GenerateNeighbors(next, wordDict))
+                    {
+                        if(candidate == endWord)
+                        {
+                            finished = true;
+
+                        }else if( seen.Contains(candidate)){
+                            continue;
+                        }
+
+                        if (!seen_this_level.Contains(candidate))
+                        {
+                            queue.Enqueue(candidate);
+                        }
+
+                        seen_this_level.Add(candidate);
+
+                        if (!parents.ContainsKey(candidate))
+                        {
+                            parents.Add(candidate, new List<string>());
+                        }
+                        parents[candidate].Add(next);
+                        
+                    }                    
+
+                }
+                if (finished)
+                {
+                    break;
+                }
+                seen.UnionWith(seen_this_level);
+
+            }
+
+            return CreateAllPaths(parents,endWord,beginWord) ;
+        }
+
+
+
+        public List<List<string>> AllShortestLadders_Optimized_Using_CustomClass(string beginWord, string endWord, List<string> wordDict)
+        {
+            //Since each node can store one Previous word,
+            // this will not all permutations of the paths to endword
+            //i.e. if a node is common across paths, only one will be chosen
+
+            List<List<string>> result = new List<List<string>>();
+            Queue<WordNode> queue = new Queue<WordNode>();
+            HashSet<string> seen = new HashSet<string>();
+            HashSet<string> seen_in_this_level = new HashSet<string>();
+
+            queue.Enqueue(new WordNode(beginWord, 1, null));
+
+            while(queue.Count > 0)
+            {
+
+                int num_in_level = queue.Count;
+                bool finished = false;
+                for(int i = 0; i < num_in_level; i++)
+                {
+                    var next = queue.Dequeue();
+
+                    foreach(var candidate in GenerateNeighbors(next.Word, wordDict))
+                    {
+                        if(candidate == endWord)
+                        {
+                            finished = true;
+                            List<string> values = new List<string>();
+                            values.Add(candidate);
+                            
+                            while(next.Previous != null)
+                            {
+                                values.Add(next.Word);
+                                next = next.Previous;
+                            }
+                            values.Add(beginWord);
+                            values.Reverse();
+                            result.Add(values);
+                        }else if (seen.Contains(candidate))
+                        {
+                            continue;
+                        }
+
+                        if (!seen_in_this_level.Contains(candidate))
+                        {
+                            queue.Enqueue(new WordNode(candidate, next.Steps + 1, next));
+                        }
+                        seen_in_this_level.Add(candidate);
+                    }
+                }
+
+                if (finished)
+                {
+                    break;
+                }
+
+                seen.UnionWith(seen_in_this_level);
+
+                
+            }
+
+
+            return result;
+
+
+        }
+
+
+
+        private List<List<string>> CreateAllPaths(Dictionary<string, List<string>> parents,string word,string beginWord)
+        {
+            if (word == beginWord)
+            {
+                return new List<List<string>>() {
+                   new List<string>(){ beginWord }
+                };
+            }
+
+            List<List<string>> result = new List<List<string>>();
+
+            foreach (var w in parents[word])
+            {
+                var output = CreateAllPaths(parents, w, beginWord);
+                foreach(var item in output)
+                {
+                    item.Add(word);
+                    result.Add(item);
+                }
+                
+            }
+
+            return result;
+            
+        }
+
 
         public IEnumerable<string> GenerateNeighbors(string initialWord, List<string> wordDict)
         {
