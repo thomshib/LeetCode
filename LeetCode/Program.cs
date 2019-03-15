@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using LeetCode.WordLadders;
 
 namespace LeetCode
 {
@@ -6,9 +8,12 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            WordLadder client = new WordLadder();
+            var wordDict = new List<string>() {"ait","bit", "hot","dot","dog","lot","log","cog"};
+            
+          
 
-
+            Console.ReadLine();
         }
     }
 }
