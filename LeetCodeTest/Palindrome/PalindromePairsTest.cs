@@ -12,7 +12,7 @@ namespace LeetCodeTest
 
 
         [TestMethod]
-        public void BruteForce_Success()
+        public void NaiveSolution_Success()
         {
             var expectedResult = new List<List<int>>()
             {
