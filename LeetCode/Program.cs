@@ -37,11 +37,11 @@ namespace LeetCode
             //Console.WriteLine($" 2nd largest element in the array: {new KLargestElement().FindKLargestElement(input, 2)}");
 
 
-            string text = "xaylmz";
-            string pattern = "x?y*z";
-            Console.WriteLine(new WiildCardMatching().IsMatch(text, pattern));
+            //string text = "xaylmz";
+            //string pattern = "x?y*z";
+            //Console.WriteLine(new WiildCardMatching().IsMatch(text, pattern));
 
-
+            _ = new BinaryAdditionofString();
 
             Console.ReadLine();
         }

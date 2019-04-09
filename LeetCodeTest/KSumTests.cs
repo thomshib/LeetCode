@@ -10,7 +10,7 @@ namespace LeetCodeTest
     public class KSumTests
     {
         [TestMethod]
-        public void ThreeSumNaiveSS_Success()
+        public void ThreeSumNaive_Success()
         {
             int[] nums = new int[] { -1, 0, 1, 2, -1, -4 };
 
@@ -33,6 +33,46 @@ namespace LeetCodeTest
             var areEqual = CollectionsAreEqual.AreEqualListOfLists(result, expectedResult);
             Assert.IsTrue(areEqual);
         }
+
+
+
+        [TestMethod]
+        public void ThreeSumWithTwoPointersAndAutoIncrementDecrement_Success()
+        {
+
+            var expectedResult = new List<List<int>>()
+            {
+                new List<int>(){ -1, 0, 1 },
+                new List<int>(){-1, -1, 2 }
+            };
+            int[] nums = new int[] { -1, 0, 1, 2, -1, -4 };
+
+            var result = new KSum().ThreeSumWithTwoPointersWithIncrementAndDecrement(nums);
+
+            var areEqual = CollectionsAreEqual.AreEqualListOfLists(result, expectedResult);
+            Assert.IsTrue(areEqual);
+        }
+
+
+
+        [TestMethod]
+        public void FourSumWithTwoPointersWithIncrementAndDecrement_Success()
+        {
+
+            var expectedResult = new List<List<int>>()
+            {
+                new List<int>(){ -1, 0, 0, 1 },
+                new List<int>(){-2, -1,1, 2 },
+                new List<int>(){-2, 0,0, 2 }
+            };
+            int[] nums = new int[] { 1, 0, -1, 0, -2, 2 };
+
+            var result = new KSum().FourSumWithTwoPointersWithIncrementAndDecrement(nums);
+
+            var areEqual = CollectionsAreEqual.AreEqualListOfLists(result, expectedResult);
+            Assert.IsTrue(areEqual);
+        }
+
 
         [TestMethod]
         public void TwoSumWithHashMap_Success()

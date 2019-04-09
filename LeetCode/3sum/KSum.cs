@@ -16,6 +16,156 @@ namespace LeetCode._3sum
          *The solution set must not contain duplicate triplets. 
          * 
          */
+
+
+        public List<List<int>> ThreeSumWithTwoPointers(int[] nums)
+        {
+            int len = nums.Length;
+            List<List<int>> output = new List<List<int>>();
+            int left, right;
+
+            //sort the array to avoid duplicates;
+            Array.Sort(nums);
+
+            for (int index = 0; index < len; index++)
+            {
+                //never let index refer to the same value twice to avoid duplicates.
+                if (index != 0 && nums[index - 1] == nums[index]) continue;
+
+                left = index + 1;
+                right = len - 1;
+
+                while (left < right)
+                {
+                    if (nums[index] + nums[left] + nums[right] == 0)
+                    {
+                        output.Add(new List<int>() { nums[index], nums[left], nums[right] });
+                        left++;
+                        right--;
+
+                        //Never let left refer to the same value twice to avoid duplicates
+                        while (left < right && nums[left] == nums[left - 1]) left++;
+
+                        //Never let right refer to the same value twice to avoid duplicates
+                        while (right > left && nums[right] == nums[right + 1]) right--;
+
+                    }
+                    else if (nums[index] + nums[left] + nums[right] < 0)
+                    {
+                        left++;
+                    }
+                    else
+                    {
+                        right--;
+                    }
+                }
+
+            }
+
+            return output;
+        }
+
+        public List<List<int>> ThreeSumWithTwoPointersWithIncrementAndDecrement(int[] nums)
+        {
+            int len = nums.Length;
+            List<List<int>> output = new List<List<int>>();
+            int left, right;
+
+            //sort the array to avoid duplicates;
+            Array.Sort(nums);
+
+            //index range is set to len-1;in the case of non duplicate Increment returns the value as-is
+            for (int index = 0; index < len - 1; index = Increment(nums,index))
+            {
+                left = index + 1;
+                right = len - 1;
+
+                while (left < right)
+                {
+                    if (nums[index] + nums[left] + nums[right] == 0)
+                    {
+                        output.Add(new List<int>() { nums[index], nums[left], nums[right] });
+                        left = Increment(nums,left);
+                        right = Decrement(nums, right);
+
+
+                    }
+                    else if (nums[index] + nums[left] + nums[right] < 0)
+                    {
+                        left = Increment(nums, left);
+                    }
+                    else
+                    {
+                        right = Decrement(nums, right);
+                    }
+                }
+
+            }
+
+            return output;
+        }
+        public List<List<int>> FourSumWithTwoPointersWithIncrementAndDecrement(int[] nums)
+        {
+            int len = nums.Length;
+            List<List<int>> output = new List<List<int>>();
+            int left, right;
+
+            //sort the array to avoid duplicates;
+            Array.Sort(nums);
+
+            for (int indexI = 0; indexI < len - 1; indexI = Increment(nums,indexI))
+            {
+               
+
+                for(int indexJ = indexI + 1; indexJ < len - 1; indexJ = Increment(nums,indexJ) ){
+                    //never let index refer to the same value twice to avoid duplicates.
+                    if (indexJ != 0 && nums[indexJ - 1] == nums[indexJ]) continue;
+
+
+                    left = indexJ + 1;
+                    right = len - 1;
+
+                    while (left < right)
+                    {
+                        if (nums[indexI] + nums[indexJ] + nums[left] + nums[right] == 0)
+                        {
+                            output.Add(new List<int>() { nums[indexI],nums[indexJ], nums[left], nums[right] });
+                            left = Increment(nums, left);
+                            right = Decrement(nums, right);
+
+                            
+
+                        }
+                        else if (nums[indexI] + nums[left] + nums[right] < 0)
+                        {
+                            left = Increment(nums, left);
+                        }
+                        else
+                        {
+                            right = Decrement(nums, right);
+                        }
+                    }
+                }
+            }
+
+            return output;
+        }
+
+        private int Increment(int[] input, int low)
+        {
+            while(low < input.Length -1 && input[low] == input[++low]) { } //do nothing
+            return low;
+        }
+
+
+        private int Decrement(int[] input, int high)
+        {
+            while (high > 0 && input[high] == input[--high]) { } //do nothing
+            return high;
+        }
+
+
+
         public List<List<int>> ThreeSumNaive(int[] nums)
         {
             int len = nums.Length;
@@ -38,47 +188,7 @@ namespace LeetCode._3sum
             return output;
         }
 
-        public List<List<int>> ThreeSumWithTwoPointers(int[] nums)
-        {
-            int len = nums.Length;
-            List<List<int>> output = new List<List<int>>();
-            int left, right;
-
-            //sort the array to avoid duplicates;
-            Array.Sort(nums);
-
-            for (int index = 0; index < len; index++)
-            {
-                //never let index refer to the same value twice to avoid duplicates.
-                if (index != 0 && nums[index - 1] == nums[index]) continue;
-
-                left = index + 1;
-                right = len - 1;
-
-                while(left < right)
-                {
-                    if(nums[index] + nums[left] + nums[right] == 0)
-                    {
-                        output.Add(new List<int>() { nums[index], nums[left], nums[right] });
-                        left++;
-
-                        //Never let left refer to the same value twice to avoid duplicates
-                        while (left < right && nums[left] == nums[left - 1]) left++;
-
-                    } else if(nums[index] + nums[left] + nums[right] < 0)
-                    {
-                        left++;
-                    }
-                    else
-                    {
-                        right--;
-                    }
-                }
-
-            }
-
-            return output;
-        }
+      
 
         public List<List<int>> TwoSumWithHashMap(int[] input,int target)
         {
