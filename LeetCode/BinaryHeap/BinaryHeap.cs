@@ -78,7 +78,7 @@ namespace LeetCode.BinaryHeaps
 
         public int Size()
         {
-            return size - 1;
+            return size > 0 ? size  : 0 ;
         }
 
         public bool IsEmpty()

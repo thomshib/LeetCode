@@ -8,6 +8,7 @@ using LeetCode.BinaryHeaps;
 namespace LeetCode.Streams
 {
     //https://www.youtube.com/watch?v=VmogG01IjYc
+    //https://leetcode.com/problems/find-median-from-data-stream/
     public class MedianOfStream
     {
         //Two heaps
@@ -24,7 +25,7 @@ namespace LeetCode.Streams
         }
 
 
-        public double FindMedian(int[] array)
+        public double FindMedian(double[] array)
         {
             for(int i = 0; i < array.Length; i++)
             {
@@ -63,15 +64,19 @@ namespace LeetCode.Streams
 
         }
 
-        private void AddNumber(int number, BinaryHeap<double> minHeap, BinaryHeap<double> maxHeap)
+        private void AddNumber(double number, BinaryHeap<double> minHeap, BinaryHeap<double> maxHeap)
         {
-            if(_minHeap.Size() == 0 || number < _minHeap.Peek())
+            //divide into two parts
+            //if input is 2,3,4,5,6
+            //maxHeap is the first part that contains 2,3,4
+            //minHeap is the second part that contains 5,6
+            if(_maxHeap.Size() == 0 || (_maxHeap.Size() > 0 && number < _maxHeap.Peek()))
             {
-                _minHeap.AddItem(number);
+                _maxHeap.AddItem(number);
             }
             else
             {
-                _maxHeap.AddItem(number);
+                _minHeap.AddItem(number);
             }
         }
     }
