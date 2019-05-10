@@ -16,6 +16,15 @@ namespace LeetCodeTest
             return list1.SequenceEqual(list2);
         }
 
+        public static bool AreEqual<T>(IList<T> list1, IList<T> list2,IEqualityComparer<T> comparer)
+        {
+            if (list1?.Count != list2?.Count)
+            {
+                return false;
+            }
+            return list1.SequenceEqual(list2,comparer);
+        }
+
         public static bool AreEqualListOfLists<T>(IList<List<T>> lists1, IList<List<T>> lists2)
         {
 
