@@ -4,9 +4,9 @@ using System.Text;
 
 namespace LeetCode.Strings
 {
-    public class WiildCardMatching
+    public class WildCardMatching
     {
-
+        //https://leetcode.com/explore/interview/card/facebook/53/recursion-3/294/
         //https://www.youtube.com/watch?v=3ZDZ-N0EPV0
         /*
          * //text chars is in row

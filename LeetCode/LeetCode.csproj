@@ -9,4 +9,10 @@
     <PackageReference Include="OptimizedPriorityQueue" Version="4.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

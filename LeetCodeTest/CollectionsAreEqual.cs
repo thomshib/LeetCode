@@ -33,6 +33,14 @@ namespace LeetCodeTest
 
         }
 
+        public static bool AreEqualListOfLists<T>(IList<IList<T>> lists1, IList<IList<T>> lists2)
+        {
+
+            return lists1.All(innerList1 => lists2.Any(innerList2 => AreEqual(innerList1, innerList2)));
+
+
+        }
+
         public static bool AreEqualListOfTuple<T>(IList<Tuple<T, T>> lists1, IList<Tuple<T, T>> lists2)
         {
 
