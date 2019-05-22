@@ -49,7 +49,7 @@ namespace LeetCode.WordBreak
 
         //Dynamic Progamming
         /*
-         * define an bool array T[], such that T[i] = true for zero to (i - 1) is found in dict
+         * define an bool array T[], such that T[i] = true; for zero to (i - 1) is found in dict
          * Initial state T[0] = true
          * 
          */

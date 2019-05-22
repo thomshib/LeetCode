@@ -49,6 +49,8 @@ namespace LeetCodeTest.Utility
             if (a.Length != b.Length)
                 return false;
 
+            Array.Sort(a);
+            Array.Sort(b);
            
 
             //force check if all the values are the same, return on first dissimilarity

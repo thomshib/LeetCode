@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -34,6 +34,18 @@ namespace LeetCode.DynamicProgramming
          * 
          * 
          * 
+         * Approach - pick first char and decode the rest and
+         *            pick first two chars and decode the rest
+         * 12345 = sum of  "a" + decode(2345) and "l" + decode(2345)  a=1 ; l=12
+         * 
+         * Exception case is
+         * 
+         * 27345 - sum of "b" + decode(2345) + nothing for two chars as 27 > 26
+         * 
+         * 011 is also an exception case as zero maps to nothing;
+         * 
+         * base case if for empty string return 1;
+         * if string starts with zero return 0;
          * 
          */
 
@@ -53,38 +65,53 @@ namespace LeetCode.DynamicProgramming
             }
         }
 
-        private int Helper(string encodedText, int k, int?[] memo)
+        private int Helper(string encodedText, int len, int?[] memo)
         {
             int result;
-            if (k == 0)
+            if (len == 0)
             {
                 return 1;
             }
 
-            int s = encodedText.Length - k;
+            int s = encodedText.Length - len;
 
             if (encodedText[s] == '0') //encoding starts from 1 onwards, hence return zero
             {
                 return 0;
             }
 
-            if (memo[k] != null)
+            if (memo[len] != null)
             {
-                return memo[k].Value;
+                return memo[len].Value;
             }
 
-            result = Helper(encodedText, k - 1, memo); //encoding for single digit chars
+            result = Helper(encodedText, len - 1, memo); //encoding for single digit chars
 
-            if (k >= 2 && Convert.ToInt16(encodedText.Substring(0, 2)) <= 26) //cannot encode values for two digit chars greater than 26
+            if (len >= 2 && Convert.ToInt16(encodedText.Substring(0, 2)) <= 26) //cannot encode values for two digit chars greater than 26
             {
-                result += Helper(encodedText, k - 2, memo); ////encoding for two digit chars
+                result += Helper(encodedText, len - 2, memo); ////encoding for two digit chars
             }
-            memo[k] = result;
+            memo[len] = result;
             return result;
         }
 
 
 
+
+        //https://www.youtube.com/watch?v=RiJBzjtVG3o
+        /*
+         * //base case
+         * dp[0] = 1;
+         * dp[1] = 1 if the char at zero index is not zero
+         * 
+         * recurrenence relationship;
+         *  dp[i] = dp[i-1] + dp[i-2] //previous two values if first two digits are valid otherwise
+         *  dp[i] = dp[i-1] //previous value only
+         * 
+         * 
+         * 
+         * 
+         */
         public int DecodeWaysIterativeSolver(string encodedText)
         {
             int[] dp = new int[encodedText.Length + 1];
