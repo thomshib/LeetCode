@@ -18,7 +18,7 @@ namespace LeetCodeTest.Strings
 
             var expectedResult = "bcde";
 
-            var result = new MinimumWindowSubstring().minWindow(S, T);
+            var result = new MinimumWindowSubstring().MinWindow(S, T);
 
             Assert.AreEqual(result, expectedResult);
         }
