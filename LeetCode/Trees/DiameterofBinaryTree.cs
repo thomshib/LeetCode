@@ -7,6 +7,11 @@ namespace LeetCode.Trees
     //https://leetcode.com/explore/interview/card/facebook/52/trees-and-graphs/291
     //https://www.techiedelight.com/find-diameter-of-a-binary-tree/
     //https://leetcode.com/explore/interview/card/facebook/52/trees-and-graphs/291/discuss/101219/C-easy-to-understand
+
+    /*
+     * The approach is similar to Maxisum sum path problem
+     * 
+     */
     public class DiameterofBinaryTree
     {
         int maxDiameter = 0;

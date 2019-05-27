@@ -7,7 +7,7 @@ namespace LeetCode.Trees
     public class ConstructLinkedListFromBinaryTree
     {
         //https://www.youtube.com/watch?v=FsxTX7-yhOw
-        //
+        //https://leetcode.com/explore/interview/card/facebook/52/trees-and-graphs/544/
         private static TreeNode previous = null;
 
         /**
@@ -77,54 +77,55 @@ namespace LeetCode.Trees
         }
 
 
-        public TreeNode ConstructLinkedListIterative(TreeNode node)
+
+        //Approach is to do Inorder Traversal
+        public TreeNode ConstructLinkedListIterative(TreeNode root)
         {
-            if (node == null)
+            if (root == null)
             {
                 return null;
             }
 
             //Step 1
 
-            TreeNode dummy = new TreeNode(-1);
-            dummy.Left = null;
-            dummy.Right = null;
-
-            TreeNode previous = dummy;
-
+            if (root == null)
+            {
+                return null;
+            }
+            TreeNode head = null;
+            TreeNode last = null;
             Stack<TreeNode> stack = new Stack<TreeNode>();
 
-            while(node != null || stack.Count > 0)
+            while (root != null || stack.Count > 0)
             {
-                
-                //Step 1 - go the left
 
-                while(node != null)
+                while (root != null)
                 {
-                    stack.Push(node);
-                    node = node.Left;
+                    stack.Push(root);
+                    root = root.Left;
                 }
 
-                //Step 2 - Process left most node
-                
-                    node = stack.Pop();
-                
-                if(previous != null)
-                {
-                    previous.Right = node;
-                    node.Left = previous;
-                }
+                TreeNode node = stack.Pop();
 
-                //Step 3 - Go to the right
-                previous = node;
+                if (head == null)
+                {
+                    head = node;
+                }
+                else
+                {
+                    last.Right = node;
+                    node.Left = last;
+                }
+                last = node;
+
                 node = node.Right;
             }
 
-            previous.Right = dummy.Right;
-            dummy.Right.Left = previous;
+            last.Right = head;
+            head.Left = last;
+            return head;
 
-            return dummy.Right;
-           
+
 
         }
     }

@@ -13,7 +13,7 @@ namespace LeetCodeTest.Trees
         [TestMethod]
         public void VerticalOrderTraversalResultsInSuccess()
         {
-            
+
             var treeNode3 = new TreeNode(3);
             var treeNode9 = new TreeNode(9);
             var treeNode20 = new TreeNode(20);
@@ -37,6 +37,27 @@ namespace LeetCodeTest.Trees
 
 
             var result = new BinaryTreeVerticalOrderTraversal().VerticalOrder(treeNode3);
+
+            var areEqual = CollectionsAreEqual.AreEqualListOfLists(result, expectedResult);
+
+            Assert.IsTrue(areEqual);
+
+
+
+        }
+
+
+        [TestMethod]
+        public void VerticalOrderTraversalWhenSingleNodeResultsInSuccess()
+        {
+            TreeNode node = new TreeNode(1);
+            var result = new BinaryTreeVerticalOrderTraversal().VerticalOrder(node);
+
+            var expectedResult = new List<List<int>>()
+            {
+                new List<int>{ 1}
+                
+            };
 
             var areEqual = CollectionsAreEqual.AreEqualListOfLists(result, expectedResult);
 

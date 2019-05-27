@@ -11,7 +11,11 @@ namespace LeetCode.Trees
 
         public bool IsValidBST(TreeNode root)
         {
+            //left tree cares about max value of root
+            //All nodes in left Tree should be less than global root
 
+            //right tree cares about min value of root
+            //All nodes in right Tree should be more than global root
 
             return IsValidBST(root, null, null);
 

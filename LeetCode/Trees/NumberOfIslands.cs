@@ -36,10 +36,10 @@ namespace LeetCode.Trees
             //collapse the island, 
             grid[i][j] = '0'; //prevents revisiting;
 
-            DFS(grid, i - 1, j);
-            DFS(grid, i + 1, j);
-            DFS(grid, i, j - 1);
-            DFS(grid, i, j + 1);
+            DFS(grid, i - 1, j); //top
+            DFS(grid, i + 1, j); //botton
+            DFS(grid, i, j - 1);//left
+            DFS(grid, i, j + 1);//right
 
             return 1; //for the i,j which was 1
         }
