@@ -13,7 +13,12 @@ namespace LeetCode.Trees
         {
             int nums = 0;
 
-            for(int i = 0; i < grid.GetLength(0); i++)
+            if (grid.GetLength(0) <= 0)
+            {
+                return 0;
+            }
+
+            for (int i = 0; i < grid.GetLength(0); i++)
             {
                 for(int j = 0; j < grid[i].Length; j++)
                 {
