@@ -181,5 +181,119 @@ namespace LeetCode.Graphs
 
 
         }
+
+
+
+        public string AlienOrderAgain(string[] words)
+        {
+
+            if (words == null || words.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            Dictionary<char, HashSet<char>> graph = new Dictionary<char, HashSet<char>>();
+            Dictionary<char, int> degreeMap = new Dictionary<char, int>();
+
+            //initialize degree
+
+            foreach (var wordItem in words)
+            {
+                foreach (var charItem in wordItem)
+                {
+
+                    if (!degreeMap.ContainsKey(charItem))
+                    {
+                        degreeMap.Add(charItem, 0);
+                    }
+                }
+            }
+
+
+            //build graph
+
+            int n = words.Length;
+
+            for (int i = 0; i < n - 1; i++)
+            {
+
+                var currentWord = words[i];
+                var nextWord = words[i + 1];
+
+                int minLength = Math.Min(currentWord.Length, nextWord.Length);
+
+                for (int j = 0; j < minLength; j++)
+                {
+
+                    var currentChar = currentWord[j];
+                    var nextChar = nextWord[j];
+
+                    if (currentChar != nextChar)
+                    {
+
+                        if (!graph.ContainsKey(currentChar))
+                        {
+                            graph.Add(currentChar, new HashSet<char>());
+                        }
+
+                        var charSet = graph[currentChar];
+
+                        if (!charSet.Contains(nextChar))
+                        {
+                            charSet.Add(nextChar);
+                            degreeMap[nextChar]++;
+                        }
+
+                        break;
+                    }
+
+                }
+
+            }
+
+
+            //process graph
+
+            Queue<char> queue = new Queue<char>();
+            StringBuilder sb = new StringBuilder();
+            foreach (var charKey in degreeMap.Keys)
+            {
+                if (degreeMap[charKey] == 0)
+                {
+                    queue.Enqueue(charKey);
+                }
+
+            }
+
+            while (queue.Count > 0)
+            {
+                var charItem = queue.Dequeue();
+                sb.Append(charItem);
+
+                foreach (var item in graph[charItem])
+                {
+
+                    if (degreeMap.ContainsKey(item))
+                    {
+                        degreeMap[item]--;
+
+                        if (degreeMap[item] == 0)
+                        {
+                            queue.Enqueue(item);
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+            if (sb.Length != degreeMap.Count) return String.Empty;
+
+            return sb.ToString();
+
+        }
+
     }
 }

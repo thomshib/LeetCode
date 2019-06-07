@@ -61,8 +61,53 @@ namespace LeetCode.Trees
          */
         public TreeNode BuildTreeRecursive(int[] preorder, int[] inorder)
         {
-            return helper(0, 0, inorder.Length - 1, preorder, inorder);
+            if (preorder == null || preorder.Length == 0 || inorder == null || inorder.Length == 0)
+            {
+                return null;
+            }
+
+            return Helper(preorder, 0, inorder, 0, inorder.Length - 1);
+
+            //return helper(0, 0, inorder.Length - 1, preorder, inorder);
         }
+
+
+        private TreeNode Helper(int[] preorder, int rootIndex, int[] inorder, int start, int end)
+        {
+
+            if (rootIndex > preorder.Length - 1 || start > end)
+            {
+                return null;
+            }
+
+            TreeNode root = new TreeNode(preorder[rootIndex]);
+            int rootInorderIndex = 0;
+            for (int i = start; i <= end; i++)
+            {
+
+                if (inorder[i] == root.val)
+                {
+                    rootInorderIndex = i;
+                    break;
+                }
+            }
+
+            /*
+             * Remember when we found the root in "inorder" array we immediately know how many nodes are on the left subtree and how many are on the right subtree
+             *   Therefore the immediate right child index is rootIndex + numsOnLeft + 1 
+             * 
+             */
+            int leftTreeLength = rootInorderIndex - start;
+
+            root.Left = Helper(preorder, rootIndex + 1, inorder, start, rootInorderIndex - 1);
+            root.Right = Helper(preorder, rootIndex + leftTreeLength + 1, inorder, rootInorderIndex + 1, end);
+            return root;
+
+
+        }
+
+
+
 
         private TreeNode helper(int startPreOrder, int startInOrder, int endInOrder, int[] preorder, int[] inorder)
         {
@@ -83,6 +128,7 @@ namespace LeetCode.Trees
                 }
             }
 
+            
             root.Left = helper(startPreOrder + 1, startInOrder, currentNodeIndex - 1, preorder, inorder);
             root.Right = helper(startPreOrder + 2, currentNodeIndex + 1, endInOrder, preorder, inorder);
 
