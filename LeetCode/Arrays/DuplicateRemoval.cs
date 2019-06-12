@@ -11,17 +11,29 @@ namespace LeetCode.Arrays
 
         public int RemoveDuplicates(int[] nums)
         {
-            int index = 1; //first element(at index 0) is unique, hence starting replacing elements from index 1
+           
 
-            for(int i = 0; i < nums.Length - 1; i++)
+            int n = nums.Length;
+            if (n == 0)
             {
-                if(nums[i] != nums[i + 1])
+                return 0;
+            }
+
+
+
+            int i = 0;
+            for (int j = 1; j < n; j++)
+            {
+                if (nums[j] != nums[i])
                 {
-                    nums[index++] = nums[i + 1];
+                    i++;
+                    nums[i] = nums[j];
                 }
             }
 
-            return index;
+            return i + 1;
+
+           
         }
     }
 }

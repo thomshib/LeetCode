@@ -25,7 +25,7 @@ namespace LeetCodeTest.LinkedLists
             expectedResult.next.next = new ListNode(8);
 
 
-            var result = new AddTwoNumbers().AddTwoNumbersSolution(L1, L2);
+            var result = new AddTwoNumbers().AddTwoNumbersAlternative(L1, L2);
 
             Assert.IsTrue(EnumerateLinkedLists(result.next, expectedResult));
 

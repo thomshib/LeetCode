@@ -51,5 +51,61 @@ namespace LeetCode.LinkedLists
 
             return head;
         }
+
+        public ListNode AddTwoNumbersAlternative(ListNode l1, ListNode l2)
+        {
+
+            ListNode result = null;
+            ListNode head = null;
+
+            if (l1 == null && l2 == null)
+            {
+                return result;
+            }
+            else if (l1 == null)
+            {
+                return l2;
+            }
+            else if (l2 == null)
+            {
+                return l1;
+            }
+
+            int remainder = 0;
+
+            while (l1 != null || l2 != null)
+            {
+
+                int sum = 0;
+
+
+                sum = l1 == null ? sum : sum + l1.val;
+
+                sum = l2 == null ? sum : sum + l2.val;
+
+                sum += remainder;
+
+                remainder = sum / 10;
+
+                sum = sum % 10;
+
+                if (result == null)
+                {
+                    result = new ListNode(sum);
+
+                }
+                else
+                {
+                    result.next = new ListNode(sum);
+                    result = result.next;
+                }
+
+                l1 = l1.next;
+                l2 = l2.next;
+
+            }
+
+            return result;
+        }
     }
 }

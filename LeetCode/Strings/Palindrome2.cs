@@ -6,6 +6,19 @@ namespace LeetCode.Strings
 {
 
     //https://leetcode.com/explore/interview/card/facebook/5/array-and-strings/289/
+    //https://leetcode.com/problems/valid-palindrome-ii/discuss/119188/C++-Easy-to-Understand-Clear-Explaination
+
+    /*
+     * 
+     * If they are NOT same : You now have 2 options
+        2.1) Remove Left Element and Check for the Rest of String OR
+        2.2) Remove Right Element and Check for the Rest of the string.
+        If either of them dont give palindrome then its not a palindorme.
+     * 
+     * 
+     * 
+     * 
+     */
     public class Palindrome2
     {
         public bool ValidPalindrome(string s)
@@ -26,20 +39,29 @@ namespace LeetCode.Strings
 
                 if (cHead != cTail)
                 {
-                    // abca
-                    //check both aba || aca 
-                    string sub1 = String.Concat(s.Substring(0, head), s.Substring(tail, n - tail)); //aca
-                    string sub2 = String.Concat(s.Substring(0, head+1), s.Substring(tail+1, n - tail - 1)); //aba
-                    if (HelperIsPalindrome(sub1) || HelperIsPalindrome(sub2))
-                    {
-                        return true;
-                    }
+                    //Remove left : head + 1, tail
+                    //Remove right: head, tail - 1 
+
+                    return IsPalindrome(s, head + 1, tail) || IsPalindrome(s, head, tail - 1);
                 }
                 head++;
                 tail--;
                 
             }
 
+            return true;
+        }
+
+        private bool IsPalindrome(string input, int left, int right)
+        {
+            while(left < right)
+            {
+                if (char.ToLower(input[left]) != char.ToLower(input[right])) return false;
+                left++;
+                right--;
+                
+
+            }
             return true;
         }
 

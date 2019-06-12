@@ -81,7 +81,7 @@ namespace LeetCode.Strings
             {
                 return false;
             }
-            if(token.Length > 0 && token.StartsWith("0"))
+            if (token.Length != 1 && token.StartsWith("0"))
             {
                 return false;
             }

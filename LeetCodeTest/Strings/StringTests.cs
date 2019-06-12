@@ -128,6 +128,14 @@ namespace LeetCodeTest.Strings
             Assert.IsTrue(result);
 
 
+             s = "ab";
+             t = "acb";
+
+             result = new OneEditDistance().IsOneEditDistance(s, t);
+            Assert.IsTrue(result);
+
+
+
         }
 
         [TestMethod]
@@ -168,6 +176,10 @@ namespace LeetCodeTest.Strings
             result = new IPAddress().ValidIPAddress(input);
             Assert.AreEqual(result, "Neither");
 
+            input = "192.0.0.1";
+            result = new IPAddress().ValidIPAddress(input);
+            Assert.AreEqual(result, "IPv4");
+
         }
 
 
@@ -177,6 +189,20 @@ namespace LeetCodeTest.Strings
             string input = "abca";
 
             var result = new Palindrome2().ValidPalindrome(input);
+
+            Assert.IsTrue(result);
+
+
+            input = "abc";
+
+            result = new Palindrome2().ValidPalindrome(input);
+
+            Assert.IsFalse(result);
+
+
+            input = "deeee";
+
+            result = new Palindrome2().ValidPalindrome(input);
 
             Assert.IsTrue(result);
 

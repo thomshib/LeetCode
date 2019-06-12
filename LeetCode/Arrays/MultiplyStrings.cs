@@ -50,7 +50,7 @@ namespace LeetCode.Arrays
                 }
             }
 
-            return sb.ToString();
+            return sb.Length == 0 ? "0" : sb.ToString();
         }
     }
 }
