@@ -51,6 +51,7 @@ namespace LeetCode.DynamicProgramming
             {
                 for(int col=1; col <= colLen; col++)
                 {
+                    //sum  = matrix value + top + left - diagonal
                     sums[row, col] = matrix[row - 1][col - 1] + sums[row, col - 1] + sums[row - 1, col] - sums[row - 1, col - 1];
                 }
 

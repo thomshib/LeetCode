@@ -18,6 +18,26 @@ namespace LeetCodeTest.Palindrome
 
            
             Assert.AreEqual(result,expectedResult);
+
+
+
+             text = "bb";
+             expectedResult = "bb";
+
+             result = new LongestPalindrome().NaiveSolution(text);
+
+
+            Assert.AreEqual(result, expectedResult);
+
+
+            text = "bab";
+            expectedResult = "bab";
+
+            result = new LongestPalindrome().LongestPalindromeSolution(text);
+
+
+            Assert.AreEqual(result, expectedResult);
+
         }
 
         [TestMethod]

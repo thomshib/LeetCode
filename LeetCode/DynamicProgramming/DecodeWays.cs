@@ -117,7 +117,7 @@ namespace LeetCode.DynamicProgramming
             int[] dp = new int[encodedText.Length + 1];
 
             dp[0] = 1; //nos of ways to decode strings of length zero
-            dp[1] = encodedText[0] == '0' ? 0 : 1;
+            dp[1] = encodedText[0] == '0' ? 0 : 1; // if start with '0' char return 0
 
             for (int i = 2; i <= encodedText.Length; i++)
             {

@@ -51,6 +51,27 @@ namespace LeetCodeTest.DynamicProgramming
         }
 
 
+        [TestMethod]
+        public void LongestValidParenthesisAlternativeSuccess()
+        {
+            string input = "()";
+            var expectedResult = 2;
+
+
+            var result = new LongestValidParentheses().LongestValidParenthesisAlternative(input);
+
+            Assert.AreEqual(result, expectedResult);
+
+
+            input = ")()())";
+            expectedResult = 4;
+
+
+            result = new LongestValidParentheses().LongestValidParenthesis(input);
+            Assert.AreEqual(result, expectedResult);
+        }
+
+
 
         [TestMethod]
         public void WordBreakSuccess()

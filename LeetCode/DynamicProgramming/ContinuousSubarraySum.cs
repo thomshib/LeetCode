@@ -18,29 +18,46 @@ namespace LeetCode.DynamicProgramming
          *                  = (k % k + 0) % k
          *                  = (1 + 0) % k
          *                  = k ; hence mod repeats
+         *                  
+         *                  
+         *                  
+         *                  
+         *  Easier Explanation
+         *  Running sum from first element to index i : sum_i. If we mod k, it will be some format like : sum_i = k * x + modk_1
+            Running sum from first element to index j : sum_j. If we mod k, it will be some format like : sum_j = k * y + modk_2
+            If they have the same mod, which is modk_1 == modk_2, subtracting these two running sum
+            we get the difference sum_i - sum_j = (x - y) * k = constant * k, 
+            and the difference is the sum of elements between index i and j, and the value is a multiple of k.
+         *                  
+         *                  
          */
 
         public bool CheckSubarraySum(int[] nums, int k)
         {
 
-            Dictionary<int, int> map = new Dictionary<int, int>(); //sum to index mapping
-            map[0] = -1;
+            int n = nums.Length;
+            if (n == 0) return false;
+
+            Dictionary<int, int> map = new Dictionary<int, int>(); //sum to index mapping;
+
             int sum = 0;
 
-            for(int i = 0; i < nums.Length; i++)
+            map[0] = -1;
+
+            for (int i = 0; i < n; i++)
             {
+
                 sum += nums[i];
-                sum = sum % k;
-                int previousIndex = -1;
-                if (map.ContainsKey(sum)){
-                    previousIndex = map[sum];
+
+                if (k != 0)
+                {
+                    sum = sum % k;
                 }
 
-                if(previousIndex >= 0)
+                if (map.ContainsKey(sum))
                 {
-                    int difference = i - previousIndex;
 
-                    if (difference >= 2)
+                    if (i - map[sum] > 1)
                     {
                         return true;
                     }
@@ -54,4 +71,5 @@ namespace LeetCode.DynamicProgramming
             return false;
         }
     }
-}
+    }
+

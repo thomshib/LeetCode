@@ -14,13 +14,14 @@ namespace LeetCode.BackTracking
          * create a boolean 2 dim arrray of rowLenght+1, colLength+1; rows are string, cols are pattern
          * dot = "."
          * star ="*"
-         *  Case 1
-         *  T[i][j] = T[i-1][j-1] if s[i] == p[i] || p[i] == dot
+         *  Case 1 : current values match, hence check whether previous values match
+         *  T[i][j] = T[i-1][j-1] if s[i] == p[j] || p[j] == dot
          * 
          *  
          *  Case 2 - if pattern[j] == star
-         *  T[i][j] = T[i][j-2] for 0 occurence OR 
-         *  T[i][j] = T[i-1][j] if s[i] == p[j-1] || p[j-1] == dot
+         *  T[i][j] = T[i][j-2] for 0 occurence; j is *, j-1 is a char; hence j-2
+         *  OR 
+         *  T[i][j] = T[i-1][j] if s[i] == p[j-1] || p[j-1] == dot   for 1 or more occurence
          * 
          */
         public bool IsMatch(string text, string pattern)
@@ -49,7 +50,7 @@ namespace LeetCode.BackTracking
 
             //deals with pattern like a* or a*b*
 
-            for (int j = 1; j < col; j++)
+            for (int j = 1; j <= col; j++)
             {
                 if (pattern[j - 1].Equals(star))
                 {

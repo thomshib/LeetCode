@@ -15,11 +15,14 @@ namespace LeetCode.PlaindromePairs
 
             int len = text.Length;
 
+            if(len == 0) return String.Empty;
+            if (len == 1) return text;
+
             for(int i = 0; i < len; i++)
             {
                 for(int j = i + 1; j < len; j++)
                 {
-                    int currLength = j - i;
+                    int currLength = j - i + 1;
                     string curr = text.Substring(i, currLength);
                     if (IsPalindrome(curr)){
                         if(currLength > maxLength)
@@ -144,6 +147,54 @@ namespace LeetCode.PlaindromePairs
             
 
             return true;
+        }
+
+
+
+        //https://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/
+        public string LongestPalindromeSolution(string s)
+        {
+            if (s == null) return String.Empty;
+
+            
+            string longestPalindrome = String.Empty;
+
+            int n = s.Length;
+            if (n == 1) return s;
+
+            
+
+            for (int i = 0; i < n; i++)
+            {
+
+                var tempResult = ExpandAroundCenter(s, i, i); //odd
+                if (tempResult.Length > longestPalindrome.Length)
+                {
+                    longestPalindrome = tempResult;
+                }
+
+                tempResult = ExpandAroundCenter(s, i, i + 1); //even
+                if (tempResult.Length > longestPalindrome.Length)
+                {
+                    longestPalindrome = tempResult;
+                }
+            }
+
+            return longestPalindrome;
+
+        }
+
+
+
+        private string ExpandAroundCenter(string input, int start, int end)
+        {
+            while (start >= 0 && end < input.Length && input[start] == input[end])
+            {
+                start--;
+                end++;
+            }
+
+            return input.Substring(start + 1, end - (start + 1) );
         }
     }
 }

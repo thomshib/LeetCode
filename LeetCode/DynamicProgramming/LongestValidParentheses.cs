@@ -67,5 +67,40 @@ namespace LeetCode.DynamicProgramming
 
 
         }
+
+        public int LongestValidParenthesisAlternative(string s)
+        {
+            if (s == null) return 0;
+
+            int n = s.Length;
+            Stack<int> stack = new Stack<int>();
+            stack.Push(-1);
+            int result = 0;
+            for (int i = 0; i < n; i++)
+            {
+
+                if (s[i] == '(')
+                {
+                    stack.Push(i);
+                }
+                else
+                {
+                    stack.Pop();
+                    if (stack.Count <= 0)
+                    {
+                        stack.Push(i);
+                    }
+                    else
+                    {
+
+                        result = Math.Max(result, i - stack.Peek());
+                    }
+                }
+            }
+
+            return result;
+
+        }
     }
-}
+    }
+
