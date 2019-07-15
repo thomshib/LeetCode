@@ -24,6 +24,51 @@ namespace LeetCodeTest
 
 
         [TestMethod]
+        public void LadderLengthTwoEndBFS_HasPathToEndWord_Pass()
+        {
+            string beginWord = "hit";
+            string endWord = "cog";
+            List<string> wordDic = new List<string>() { "hot", "dot", "dog", "lot", "log", "cog" };
+
+            WordLadder client = new WordLadder();
+            var result = client.LadderLengthTwoEndBFS(beginWord, endWord, wordDic);
+
+            Assert.IsTrue(result == 5);
+
+        }
+
+
+        [TestMethod]
+        public void LadderLengthIdeal_HasPathToEndWord_Pass()
+        {
+            string beginWord = "hit";
+            string endWord = "cog";
+            List<string> wordDic = new List<string>() { "hot", "dot", "dog", "lot", "log", "cog" };
+
+            WordLadder client = new WordLadder();
+            var result = client.LadderLengthIdeal(beginWord, endWord, wordDic);
+
+            Assert.IsTrue(result == 5);
+
+        }
+
+
+        [TestMethod]
+        public void LadderLengthIdealBidirectionalBFS_HasPathToEndWord_Pass()
+        {
+            string beginWord = "hit";
+            string endWord = "cog";
+            List<string> wordDic = new List<string>() { "hot", "dot", "dog", "lot", "log" };
+
+            WordLadder client = new WordLadder();
+            var result = client.LadderLengthIdealBidirectionalBFS(beginWord, endWord, wordDic);
+
+            Assert.IsTrue(result == 5);
+
+        }
+
+
+        [TestMethod]
         public void HasNoPathToEndWord_Pass()
         {
             string beginWord = "hit";
