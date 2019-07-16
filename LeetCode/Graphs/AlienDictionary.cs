@@ -11,6 +11,11 @@ namespace LeetCode.Graphs
         /*
          * Approach:
          * 
+         * 
+         * https://leetcode.com/problems/course-schedule-ii/discuss/190393/Topological-Sort-Template-General-Approach!!
+         * 
+         * Build Graph and Do Topological Sorting
+         * 
          * Step 1: build a degree map for each character in all the words
                 w:0
                 w:0
@@ -85,18 +90,18 @@ namespace LeetCode.Graphs
                 int minLength = Math.Min(currentWord.Length, nextWord.Length);
 
                 for (int j = 0; j < minLength; j++){
-                    char currentChar = currentWord[j];
-                    char nextChar = nextWord[j];
+                    char parent = currentWord[j];
+                    char child = nextWord[j];
 
                     //build currentChar -> nextChar relationship
-                    if(currentChar != nextChar)
+                    if(parent != child)
                     {
-                        if (!graph.ContainsKey(currentChar))
+                        if (!graph.ContainsKey(parent))
                         {
-                            graph.Add(currentChar, new HashSet<char>());
+                            graph.Add(parent, new HashSet<char>());
                         }
 
-                        HashSet<char> charSet = graph[currentChar];
+                        HashSet<char> charSet = graph[parent];
 
                         /* avoid duplicate maps
                         * eg: for the input: {"za", "zb", "ca", "cb"}, we have two pairs of a -> b relationship
@@ -106,14 +111,14 @@ namespace LeetCode.Graphs
                         * incorrect graph: a->b, a->b, z->c
                         */
 
-                        if (!charSet.Contains(nextChar))
+                        if (!charSet.Contains(child))
                         {
-                            charSet.Add(nextChar);
-                            graph[currentChar] = charSet;
+                            charSet.Add(child);
+                            graph[parent] = charSet;
 
                             //update degree map
 
-                            degreeMap[nextChar]++;
+                            degreeMap[child]++;
                         }
 
                         /* we can determine the order of characters ony by first different pair of characters 
@@ -127,7 +132,8 @@ namespace LeetCode.Graphs
             #endregion
 
 
-            #region ProcessGraph
+            #region ProcessGraph 
+            //Topological Sorting
 
             StringBuilder sb = new StringBuilder();
             Queue<char> queue = new Queue<char>();
