@@ -68,5 +68,35 @@ namespace LeetCodeTest.Utility
             //They survived the previous check, so they must be equal
             return true;
         }
+
+        public static bool sequencesEqual(double[] a, double[] b)
+        {
+            //Check if they are the same references
+            if (object.ReferenceEquals(a, b))
+                return true;
+
+            //Check if they are equall lenght
+            if (a.Length != b.Length)
+                return false;
+
+            Array.Sort(a);
+            Array.Sort(b);
+
+
+            //force check if all the values are the same, return on first dissimilarity
+
+            for (int i = 0; i < a.Length; i++)
+            {
+
+                if (a[i] != b[i])
+                    return false;
+
+
+            }
+
+
+            //They survived the previous check, so they must be equal
+            return true;
+        }
     }
 }
