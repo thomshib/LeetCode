@@ -8,7 +8,7 @@ namespace LeetCode.Graphs
     {
         //https://leetcode.com/explore/interview/card/google/61/trees-and-graphs/3076/
 
-        https://leetcode.com/articles/most-stones-removed-with-same-row-or-column/
+        //https://leetcode.com/articles/most-stones-removed-with-same-row-or-column/
         public int RemoveStones(int[][] stones)
         {
         /*
