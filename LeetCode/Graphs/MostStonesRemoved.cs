@@ -83,7 +83,29 @@ namespace LeetCode.Graphs
 
         #region UnionFind
 
+            public int RemoveStonesUnionFind(int[][] stones) {
+                int L = stones.GetLength(0);
+                WeightedQuickUnionFind uf = new WeightedQuickUnionFind(L);
+                for(int i =0; i < L; i++){
+                    for(int j = i+1; j < L; j++){
+                        if(stones[i][0] == stones[j][0]  || stones[i][1] == stones[j][1]){
+                            uf.Union(i,j);
+                        }
+                    }
+                }
 
+                int count = 0;
+                int[] componentSize = uf.Size(); //calculate the individual component sizes
+                for(int i=0; i < componentSize.Length; i++){
+                    count += componentSize[i] > 1 ? componentSize[i] - 1 : 0;
+                }
+                return count;
+
+
+
+
+
+            }
 
         #endregion
 

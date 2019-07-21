@@ -114,5 +114,9 @@ namespace LeetCode.Graphs
             }
             count--;
         }
+    
+        public int[] Size(){
+            return sz;
+        }
     }
 }
