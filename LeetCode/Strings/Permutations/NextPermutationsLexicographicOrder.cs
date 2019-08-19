@@ -90,6 +90,16 @@ public string NextLexicographicPermutationUsingWhileLoop(string input){
 
     //Now the charSet[j] will become the new pivot
     //assertion: j >= i
+
+    // swap the pivot with j
+    Swap(charSet, i-1,j);
+
+    // Reverse the suffix
+    j = N-1;
+    Reverse(charSet,i,j);
+
+    return charSet.ToString();
+
 }
       private  void Swap( char[] value,int i, int j)
         {
