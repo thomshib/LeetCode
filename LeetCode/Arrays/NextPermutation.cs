@@ -16,6 +16,17 @@ namespace LeetCode.Arrays
     {
 
         /*
+
+         *Find next permutation as per Lexicogrpahic Order
+            1. Find the largest i such that P[i] < P[i+1] ; If there is no such i, P is the last permutation
+            2. Find the largest j such that P[i] < P[j]
+            3. Swap P[i] and P[j]
+            4. Reverse P[i+1....n] 
+
+
+
+
+
          * Step-1: find the inverse point index which breaks the descending order
          * 
          * 9,1,2,4,3,1,0   - element 2 breaks the descending order, inverse index = 2
