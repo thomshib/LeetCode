@@ -17,7 +17,7 @@ public class JumpGame{
     public bool CanJump(int[] nums) {
 
         //Approach 1 - BackTrack Approach
-        return CanJumpFromPosition(0, nums);
+        //return CanJumpFromPosition(0, nums);
 
         //Approach 2 - Dynamic Programming Top-Down
         /* 
@@ -32,8 +32,11 @@ public class JumpGame{
         //Approach 3: Dynamic Programming Bottom-up
         //return CanJumpFromPositionDynamicPrgBottomDown(nums);
         
+        //Approach 4: Greedy
+        return CanJumpFromPositionGreedy(nums);
         
     }
+    #region Backtracking
         /*
         //Approach 1 - Backtrack
             This is the inefficient solution where we try every single jump pattern that takes us 
@@ -69,6 +72,9 @@ public class JumpGame{
 
     }
 
+    #endregion
+
+    #region Dynamic Top down
     /*
         //Approach 2 - Dynamic Programming Top-Down
 
@@ -129,6 +135,10 @@ public class JumpGame{
 
     }
 
+    #endregion
+
+    #region Dynamic BottomUp
+
     /*
     
     Approach 3: Dynamic Programming Bottom-up
@@ -175,8 +185,50 @@ public class JumpGame{
 
      }
 
+     #endregion
 
+     #region Greedy
 
+     /*
+     Approach 4: Greedy
+        Once we have our code in the bottom-up state, we can make one final, important observation. From a given position, when we try to see if we can jump to a GOOD position, we only ever use one - the first one (see the break statement). In other words, the left-most one. If we keep track of this left-most GOOD position as a separate variable, we can avoid searching for it in the array. Not only that, but we can stop using the array altogether.
+
+        Iterating right-to-left, for each position we check if there is a potential jump that reaches a GOOD index (currPosition + nums[currPosition] >= leftmostGoodIndex). If we can reach a GOOD index, then our position is itself GOOD. Also, this new GOOD position will be the new leftmost GOOD index. Iteration continues until the beginning of the array. If first position is a GOOD index then we can reach the last index from the first position.
+
+        To illustrate this scenario, we will use the diagram below, for input array nums = [9, 4, 2, 1, 0, 2, 0]. We write G for GOOD, B for BAD and U for UNKNOWN. Let's assume we have iterated all the way to position 0 and we need to decide if index 0 is GOOD. Since index 1 was determined to be GOOD, it is enough to jump there and then be sure we can eventually reach index 6. It does not matter that nums[0] is big enough to jump all the way to the last index. All we need is one way.
+
+        Index	0	1	2	3	4	5	6
+        nums	9	4	2	1	0	2	0
+        memo	U	G	B	B	B	G	G
+
+        Complexity Analysis
+
+        Time complexity : O(n). We are doing a single pass through the nums array, hence nn steps, where nn is the length of array nums.
+
+        Space complexity : O(1) We are not using any extra memory.
+        
+     */
+
+    private bool CanJumpFromPositionGreedy(int[] nums){
+       
+       int size = nums.Length - 1;
+       int lastPosition = size;
+
+       for(int currentPosition = size; currentPosition >= 0; currentPosition--){
+           if(currentPosition + nums[currentPosition] >= lastPosition){
+               lastPosition = currentPosition;
+           }
+
+       }
+
+       return lastPosition == 0;
+       
+       
+    }
+
+    #endregion
+
+     
 }
 
 
