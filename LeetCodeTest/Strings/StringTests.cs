@@ -156,6 +156,24 @@ namespace LeetCodeTest.Strings
             Assert.AreEqual(result, 2);
         }
 
+        [TestMethod]
+        public void LengthOfLongestSubstringKDistinctUsingDict_Success()
+        {
+            string input = "eceba"; 
+            //ece
+            var result = new LongestSubstringwithKDistinctCharacters().LengthOfLongestSubstringKDistinctUsingDict(input,2);
+
+            Assert.AreEqual(result,3);
+
+
+
+            input = "aa";
+            //ece
+            result = new LongestSubstringwithKDistinctCharacters().LengthOfLongestSubstringKDistinctUsingDict(input, 1);
+
+            Assert.AreEqual(result, 2);
+        }
+
 
         [TestMethod]
         public void IPAddress()
