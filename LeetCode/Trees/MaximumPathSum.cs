@@ -26,6 +26,13 @@ namespace LeetCode.Trees
             right_gain = max(max_gain(node.right), 0).
             Now check to continue the old path or to start a new path. To start a new path would cost price_newpath = node.val + left_gain + right_gain. Update max_sum if it's better to start a new path.
             For the recursion return the max gain the node and one/zero of its subtrees could add to the current path : node.val + max(left_gain, right_gain).
+            
+            
+
+            Time complexity: O(N), where N is number of nodes, since we visit each node not more than 2 times.
+
+             Space complexity: O(H), where H is a tree height, to keep the recursion stack. In the average case of balanced tree, the tree height H=log⁡N , in the worst case of skewed tree, H=NH = NH=N.
+
                             
          *           
          * 
@@ -36,6 +43,7 @@ namespace LeetCode.Trees
             if (node == null) return 0;
 
             // max sum on the left and right sub-trees of node
+            //only include it if it's not negative)
             int left_gain = Math.Max(Max_Gain(node.Left), 0 );
             int right_gain = Math.Max(Max_Gain(node.Right),0);
 
@@ -47,6 +55,7 @@ namespace LeetCode.Trees
 
             // for recursion :
             // return the max gain if continue the same path
+            //choose left or right path ; not both; since including both will violate path semantics
             return node.val + Math.Max(left_gain,right_gain);
         }
     }
