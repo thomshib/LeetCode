@@ -18,7 +18,15 @@ namespace LeetCode.Trees
          * 
          * option-1: pick root and pick left branch or right branch
          * option-2: pick root and pick  +ve left branch and +ve right branch
-         *                              
+         *  
+            Initiate max_sum as the smallest possible integer and call max_gain(node = root).
+            Implement max_gain(node) with a check to continue the old path/to start a new path:
+            Base case : if node is null, the max gain is 0.
+            Call max_gain recursively for the node children to compute max gain from the left and right subtrees : left_gain = max(max_gain(node.left), 0) and
+            right_gain = max(max_gain(node.right), 0).
+            Now check to continue the old path or to start a new path. To start a new path would cost price_newpath = node.val + left_gain + right_gain. Update max_sum if it's better to start a new path.
+            For the recursion return the max gain the node and one/zero of its subtrees could add to the current path : node.val + max(left_gain, right_gain).
+                            
          *           
          * 
          * 
