@@ -96,30 +96,24 @@ namespace LeetCode.Trees
             TreeNode last = null;
             Stack<TreeNode> stack = new Stack<TreeNode>();
 
-            while (root != null || stack.Count > 0)
-            {
-
-                while (root != null)
-                {
-                    stack.Push(root);
-                    root = root.Left;
-                }
-
-                TreeNode node = stack.Pop();
-
-                if (head == null)
-                {
-                    head = node;
-                }
-                else
-                {
-                    last.Right = node;
-                    node.Left = last;
-                }
-                last = node;
-
-                node = node.Right;
+           while(root != null || stack.Count > 0){
+            
+            while(root != null){
+                stack.Push(root);
+                root = root.left;
             }
+            root = stack.Pop();
+            
+            if(head == null){
+                head = root;
+            }else{
+                root.left = last;
+                last.right = root;
+                
+            }
+            last = root;
+            root = root.right;
+        }
 
             last.Right = head;
             head.Left = last;
