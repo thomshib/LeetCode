@@ -11,6 +11,10 @@ namespace LeetCode.BackTracking
     public class RegularExpressionMatching
     {
         /*
+        
+           a*b == b   zero occurence of a
+           a*b == ab, aab,aaab.  one of more occurence of a
+           
          * create a boolean 2 dim arrray of rowLenght+1, colLength+1; rows are string, cols are pattern
          * dot = "."
          * star ="*"
