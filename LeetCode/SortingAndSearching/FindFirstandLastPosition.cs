@@ -49,14 +49,14 @@ namespace LeetCode.SortingAndSearching
         {
 
             int start = index;
-            while(start >= 0 && nums[start] == nums[start - 1])
+            while(start - 1 >= 0 && nums[start] == nums[start - 1])
             {
                 start--;
             }
 
             int end = index;
 
-            while (end < nums.Length && nums[end] == nums[end + 1])
+            while (end + 1 < nums.Length && nums[end] == nums[end + 1])
             {
                 end++;
             }
