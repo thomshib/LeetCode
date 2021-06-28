@@ -193,111 +193,75 @@ namespace LeetCode.Graphs
         public string AlienOrderAgain(string[] words)
         {
 
-            if (words == null || words.Length == 0)
-            {
-                return string.Empty;
+
+            Dictionary<char,List<char>> graph = new Dictionary<char,List<char>>();
+        Dictionary<char,int> inDegree = new Dictionary<char,int>();
+        string result = "";
+        
+        if(words == null || words.Length == 0) return result;
+        
+        //initialize
+        foreach(var word in words){
+            foreach(var character in word){
+                if(!graph.ContainsKey(character)){
+                    graph.Add(character, new List<char>());
+                    inDegree.Add(character,0);
+                }
             }
-
-            Dictionary<char, HashSet<char>> graph = new Dictionary<char, HashSet<char>>();
-            Dictionary<char, int> degreeMap = new Dictionary<char, int>();
-
-            //initialize degree
-
-            foreach (var wordItem in words)
-            {
-                foreach (var charItem in wordItem)
-                {
-
-                    if (!degreeMap.ContainsKey(charItem))
-                    {
-                        degreeMap.Add(charItem, 0);
+        }
+        
+        //build
+        for(int i = 0; i < words.Length - 1 ; i++){
+            var word1 = words[i];
+            var word2 = words[i+1];
+            if(word1.Length > word2.Length && word1.StartsWith(word2)) return ""; // "abc", "ab" should return""
+            int L = Math.Min(word1.Length, word2.Length);
+            for(int j = 0; j < L ; j++){
+                var parent = word1[j];
+                var child = word2[j];
+                
+                
+                if(parent != child){
+                    if(!graph[parent].Contains(child)){
+                    graph[parent].Add(child);
+                    inDegree[child]++;
+                    
                     }
+                    break;
+                }
+                
+            }
+        }
+        
+        Queue<char> queue = new Queue<char>();
+        
+        foreach(var item in inDegree){
+            if(item.Value == 0){
+                queue.Enqueue(item.Key);
+            }
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        while(queue.Count > 0){
+            var current = queue.Dequeue();
+            sb.Append(current);
+            foreach(var next in graph[current]){
+                inDegree[next]--;
+                if(inDegree[next] == 0){
+                    queue.Enqueue(next);
                 }
             }
+        }
+        
+        result = sb.ToString();
+        
+        if(result.Length != inDegree.Count) return "";
+        
+        return result;
+              
 
 
-            //build graph
-
-            int n = words.Length;
-
-            for (int i = 0; i < n - 1; i++)
-            {
-
-                var currentWord = words[i];
-                var nextWord = words[i + 1];
-
-                int minLength = Math.Min(currentWord.Length, nextWord.Length);
-
-                for (int j = 0; j < minLength; j++)
-                {
-
-                    var currentChar = currentWord[j];
-                    var nextChar = nextWord[j];
-
-                    if (currentChar != nextChar)
-                    {
-
-                        if (!graph.ContainsKey(currentChar))
-                        {
-                            graph.Add(currentChar, new HashSet<char>());
-                        }
-
-                        var charSet = graph[currentChar];
-
-                        if (!charSet.Contains(nextChar))
-                        {
-                            charSet.Add(nextChar);
-                            degreeMap[nextChar]++;
-                        }
-
-                        break;
-                    }
-
-                }
-
-            }
-
-
-            //process graph
-
-            Queue<char> queue = new Queue<char>();
-            StringBuilder sb = new StringBuilder();
-            foreach (var charKey in degreeMap.Keys)
-            {
-                if (degreeMap[charKey] == 0)
-                {
-                    queue.Enqueue(charKey);
-                }
-
-            }
-
-            while (queue.Count > 0)
-            {
-                var charItem = queue.Dequeue();
-                sb.Append(charItem);
-
-                foreach (var item in graph[charItem])
-                {
-
-                    if (degreeMap.ContainsKey(item))
-                    {
-                        degreeMap[item]--;
-
-                        if (degreeMap[item] == 0)
-                        {
-                            queue.Enqueue(item);
-                        }
-
-                    }
-
-
-                }
-
-            }
-
-            if (sb.Length != degreeMap.Count) return String.Empty;
-
-            return sb.ToString();
 
         }
 
